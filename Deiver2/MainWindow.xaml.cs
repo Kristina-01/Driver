@@ -17,22 +17,7 @@ using System.Windows.Shapes;
 
 namespace Deiver2
 {
-   public class str
-    {
-        public string srtoka { get; set; }
-    } 
-    
-    public interface IAddData<R> where R : class
-    {
-        public List<R> Data { get; set; }
-    }
-
-    class liststr : IAddData<str>
-    {
-        public List<str> Data { get; set; } 
-    }
-
-
+   
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -42,12 +27,12 @@ namespace Deiver2
         {
             InitializeComponent();
            
-            str s = new str();
-            s.srtoka = "Hello";
-            liststr ls = new liststr();
-            ls.Data = new List<str>();
-            ls.Data.Add(s);
-            Serialize2<liststr, str>.AddData(ls, "str.json");
+            //J2 js2 = new J2();
+            //js2.idnew = ;
+            //liststr ls = new liststr();
+            //ls.Data = new List<str>();
+            //ls.Data.Add(s);
+            //Serialize2<liststr, str>.AddData(ls, "str.json");
 
 
 

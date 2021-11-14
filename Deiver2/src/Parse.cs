@@ -67,6 +67,7 @@ namespace Deiver2
                     //var tempImg = item.FindElements(By.TagName("a"));
 
                     string strUrl = "";
+                    string id = "";
 
                     try
                     {
@@ -74,7 +75,11 @@ namespace Deiver2
 
                         //string teststring = temp.GetAttribute("id").ToString();
 
+                        var ClB = item.FindElement(By.ClassName("page_post_thumb_wrap"));
 
+                        var id2 = ClB.ToString().Replace("(", "").Replace(")","").Split("=");
+                        if (id2 != null && id2.Length > 1)
+                            id = id2[1].Trim();
                         var styleArr = clA.Split("url");
 
                         var res = GetLinks(styleArr[1]);
@@ -99,12 +104,24 @@ namespace Deiver2
 
                     };
 
+
+
                     allNews.Data.Add(news);
 
                     // wall_post_text
                     // page_post_sized_thumbs  clear_fix
 
                     //var el = item.FindElement("wall_post_text");
+
+                    J2 j2 = new J2()
+                    {
+                        
+                        img=strUrl
+                    };
+
+
+
+
                 }
 
                 //Serialize<AllNews> sr = new Serialize<AllNews>();
