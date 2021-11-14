@@ -48,6 +48,7 @@ namespace Deiver2
 
 
                 AllNews allNews = new AllNews();
+                Liststr liststr = new Liststr();
                 foreach (var item in webElementsNews)
                 {
                     if (!item.Displayed)
@@ -77,7 +78,7 @@ namespace Deiver2
 
                         var ClB = item.FindElement(By.ClassName("page_post_thumb_wrap"));
 
-                        var id2 = ClB.ToString().Replace("(", "").Replace(")","").Split("=");
+                        var id2 = ClB?.ToString()?.Replace("(", "").Replace(")","").Split("=");
                         if (id2 != null && id2.Length > 1)
                             id = id2[1].Trim();
                         var styleArr = clA.Split("url");
@@ -103,9 +104,6 @@ namespace Deiver2
                         UrlImg = strUrl
 
                     };
-
-
-
                     allNews.Data.Add(news);
 
                     // wall_post_text
@@ -113,25 +111,29 @@ namespace Deiver2
 
                     //var el = item.FindElement("wall_post_text");
 
+
+
                     J2 j2 = new J2()
                     {
-                        
+                        idnew = id,
                         img=strUrl
                     };
-
-
-
-
+                    liststr.Data.Add(j2);
                 }
 
                 //Serialize<AllNews> sr = new Serialize<AllNews>();
 
                 //sr.Write(allNews, "news.json");
                 if (IsAddData)
+                {
                     Serialize2<AllNews, News>.AddData(allNews, "news.json");
+                    Serialize2<Liststr, J2>.AddData(liststr, "J2");
+                }
                 else
+                {
                     Serialize2<AllNews, News>.Write(allNews, "news.json");
-
+                    Serialize2<Liststr, J2>.Write(liststr, "J2");
+                }
                 ActionGetData?.Invoke(IsAddData);
             }
             catch (Exception ex)

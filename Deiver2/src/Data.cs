@@ -35,7 +35,7 @@ public interface IAddData<R> where R : class
     public List<R> Data { get; set; }
 }
 
-class liststr : IAddData<J2>
+class Liststr : IAddData<J2>
 {
-    public List<J2> Data { get; set; }
+    public List<J2> Data { get; set; } = new List<J2>();
 }
