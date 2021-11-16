@@ -18,11 +18,14 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="btn1" Grid.Column="0" Content="Get data" Height="26" Width="76" Click="WriteData"/>
             <Button x:Name="btn2" Grid.Column="2"  Content="Add data" Height="26" Width="76" Click="AddData"/>
             <Button Grid.Column="4"  Content="delite file" Height="26" Width="76" Click="DeliteFile"/>
+            <Button x:Name="Start" Grid.Column="6" Content="Start" Height="26" Width="76" Click="Start_Click"></Button>
         </Grid>
     </Grid>
 </Window>

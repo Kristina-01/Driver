@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace Deiver2
 {
-    public class Parse
+    public partial class Parse
     {
 
         private static ChromeOptions chromeOptions = null;
@@ -44,11 +44,9 @@ namespace Deiver2
                     return;
                 List<IWebElement> webElementsNews = parent.FindElements(By.TagName("div")).ToList();
 
-
-
-
                 AllNews allNews = new AllNews();
                 Liststr liststr = new Liststr();
+                ListJ3 listJ3 = new ListJ3();
                 foreach (var item in webElementsNews)
                 {
                     if (!item.Displayed)
@@ -69,6 +67,7 @@ namespace Deiver2
 
                     string strUrl = "";
                     string id = "";
+                    string copyright = "";
 
                     try
                     {
@@ -79,9 +78,17 @@ namespace Deiver2
                         var ClB = item.FindElement(By.ClassName("page_post_thumb_wrap"));
 
                         var id2 = ClB?.ToString()?.Replace("(", "").Replace(")","").Split("=");
+
+                        var s = item.FindElement(By.ClassName("page_post_thumb_wrap")).GetAttribute("href");
+
+                        var sys = s?.ToString()?.Replace("(", "").Replace(")", "").Split("=");
+
                         if (id2 != null && id2.Length > 1)
                             id = id2[1].Trim();
                         var styleArr = clA.Split("url");
+
+                        if (sys != null && sys.Length > 1)
+                            copyright = sys[1].Trim();
 
                         var res = GetLinks(styleArr[1]);
                         if (res != null && res.Count > 0)
@@ -97,14 +104,15 @@ namespace Deiver2
 
 
 
-                    News news = new News()
+                    J1 j1 = new J1()
                     {
-                        Header = arr[0],
+                        idnew = id,
+                       // Header = arr[0],
                         Txt = arr[1],
-                        UrlImg = strUrl
+                        //UrlImg = strUrl
 
                     };
-                    allNews.Data.Add(news);
+                    allNews.Data.Add(j1);
 
                     // wall_post_text
                     // page_post_sized_thumbs  clear_fix
@@ -119,6 +127,14 @@ namespace Deiver2
                         img=strUrl
                     };
                     liststr.Data.Add(j2);
+
+                    J3 j3 = new J3()
+                    {
+                        SH =copyright,
+                        idnew = id,
+                        
+                    };
+                    listJ3.Data.Add(j3);
                 }
 
                 //Serialize<AllNews> sr = new Serialize<AllNews>();
@@ -126,13 +142,15 @@ namespace Deiver2
                 //sr.Write(allNews, "news.json");
                 if (IsAddData)
                 {
-                    Serialize2<AllNews, News>.AddData(allNews, "news.json");
-                    Serialize2<Liststr, J2>.AddData(liststr, "J2");
+                    Serialize2<AllNews, J1>.AddData(allNews, "J1.json");
+                    Serialize2<Liststr, J2>.AddData(liststr, "J2.json");
+                    Serialize2<ListJ3, J3>.AddData(listJ3, "J3.json");
                 }
                 else
                 {
-                    Serialize2<AllNews, News>.Write(allNews, "news.json");
-                    Serialize2<Liststr, J2>.Write(liststr, "J2");
+                    Serialize2<AllNews, J1>.Write(allNews, "J1.json");
+                    Serialize2<Liststr, J2>.Write(liststr, "J2.json");
+                    Serialize2<ListJ3, J3>.Write(listJ3, "J3.json");
                 }
                 ActionGetData?.Invoke(IsAddData);
             }

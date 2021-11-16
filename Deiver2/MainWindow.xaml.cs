@@ -104,7 +104,8 @@ namespace Deiver2
 
         private void DeliteFile(object sender, RoutedEventArgs e)
         {
-            List<string> vs= new List<string>() { "news.json" };
+            List<string> vs= new List<string>() { "J1.json", "J2.json", "J3.json" };
+           
 
             foreach(var el in vs)
             {
@@ -112,6 +113,25 @@ namespace Deiver2
                     File.Delete(el);
 
             }
+        }
+
+        private void Start_Click(object sender, RoutedEventArgs e)
+        {
+            Thread thread = new Thread(new ThreadStart(start));
+            thread.Start();
+        }
+
+        private void start()
+        {
+            Parse p = new Parse();
+
+            Thread th1 = new Thread(() => {
+                p.InitJ1();
+            });
+
+            th1.Start();
+
+
         }
     }
 }

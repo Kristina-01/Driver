@@ -12,16 +12,18 @@ public class Class1
     public string Nmam { get; set; }
 }
 
-public class AllNews : IAddData<News>
+public class AllNews : IAddData<J1>
 {
-    public List<News> Data { get; set; } = new List<News>();
+    public List<J1> Data { get; set; } = new List<J1>();
 }
 
-public class News
+public class J1
 {
-    public string Header { get; set; }
-    public string UrlImg { get; set; }
+    //public string Header { get; set; }
+   // public string UrlImg { get; set; }
     public string Txt { get; set; }
+
+    public string idnew { get; set; }
 }
 
 public class J2
@@ -39,3 +41,16 @@ class Liststr : IAddData<J2>
 {
     public List<J2> Data { get; set; } = new List<J2>();
 }
+
+public class J3
+{
+    public string idnew { get; set; }
+
+    public string SH { get; set; }
+}
+
+class ListJ3 : IAddData<J3>
+{
+    public List<J3> Data { get; set; } = new List<J3>();
+}
+
